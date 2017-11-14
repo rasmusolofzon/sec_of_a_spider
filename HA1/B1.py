@@ -2,17 +2,19 @@ import sys
 
 def luhn(card_nbr):
     split_nbr = {}
-    for i in range(10):
+    n = len(card_nbr)
+    for i in range(n):
         split_nbr[i] = int(card_nbr[i:i+1])
     
-    for i in range(1, 6):
-        split_nbr[10-i*2] += 2
-        if split_nbr[10-i*2] > 9:
-            split_nbr[10-i*2] -= 9
+    for i in range(2, n):
+        split_nbr[n-i] *= 2
+        if split_nbr[n-i] > 9:
+            split_nbr[n-i] -= 9
+        i += 1
     
-    sum_digits = sum(split_nbr.values()[:-1])
+    sum_digits = sum(list(split_nbr.values())[:])
     
-    return card_nbr
+    return sum_digits % 10
 
 def make_luhn(card_X_nbr):
 
@@ -20,6 +22,8 @@ def make_luhn(card_X_nbr):
 
         if luhn(card_X_nbr) == 0:
             return 1
+    
+    return 0
     
 
 if __name__ == '__main__':
@@ -42,3 +46,5 @@ if __name__ == '__main__':
         digit = 0
 
         answer_string += str(digit)
+
+    print(luhn("79927398713"))
