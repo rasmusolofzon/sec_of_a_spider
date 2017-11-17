@@ -6,7 +6,7 @@ def luhn(card_nbr):
     for i in range(n):
         split_nbr[i] = int(card_nbr[i:i+1])
     
-    for i in range(2, n):
+    for i in range(2, n, 2):
         split_nbr[n-i] *= 2
         if split_nbr[n-i] > 9:
             split_nbr[n-i] -= 9
