@@ -39,4 +39,5 @@ if __name__ == '__main__':
     u = 16
     k = 2
     confidence interval width = 22
+
 '''
