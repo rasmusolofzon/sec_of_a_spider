@@ -57,7 +57,7 @@ if __name__ == '__main__':
                     5: (20, 7, 100, 15616),
                     6: (20, 7, 10000, 4783)}
     # choose combination of test parameters here:
-    combination = 4
+    combination = 1
 
     ci = math.inf
     iterations_list = []
@@ -68,7 +68,7 @@ if __name__ == '__main__':
         iterations_list.append(generate_coins(parameters[combination][0], 
                                 parameters[combination][1], 
                                 parameters[combination][2]))
-        if len(iterations_list) > 10:
+        if len(iterations_list) > 5:
             ci = confidence_interval(iterations_list)
     
     end_time = time.time() - start_time
