@@ -5,14 +5,49 @@
 \bibliographystyle{plain}
 \usepackage[citestyle=numeric]{biblatex}
 
-\title{Home Assignment \#1 in Advanced Sweb Security, EITN41}
-\author{Rasmus Olofzon}
+\newcommand{\Q}[2]{
+  \textbf{#1} \textit{#2}
+ }
+\newcommand{\A}[1]{ #1 }
+
+\title{Home Assignment 1 \\ EITN41}
+\author{Rasmus Olofzon, 9104192472}
+\date{}
 
 \begin{document}
 \maketitle
 
-\begin{thebibliography}{9}
-  \bibitem{cossim} \url{https://en.wikipedia.org/wiki/Cosine_similarity}
-\end{thebibliography}
+\Q{A-4} {What  is  the  difference  between  a  three-party  scheme  and  a  four-party  
+scheme  for  credit  card  payments?}
+
+\A{Blah blah blah.}
+
+\Q{A-7} {Is SSL required in SET? Motivate your answer.}
+
+\Q{A-13} {What is the difference between authorization and authentication in VbV 
+(3D Secure)?}
+
+\Q{A-23} {In  PayWord,  a  unit  could  be,  e.g.,  one  cent  (or  one  {\"o}re),  
+so  even  though  the  payments  are  "micro", the hash chains could be pretty long.  
+Could this pose a storage problem to Alice, who has to generate the entire chain when 
+(before) she makes her  first purchase from a merchant?}
+
+\Q{A-27} {In the PayWord protocol, give the Bank's algorithm for verifying how much money 
+should be taken from the user's account.}
+
+\Q{A-29} {What  is  meant  by  a  probabilistic  payment?   How  does  the  
+Electronic  Lottery  Tickets  scheme  differ from Peppercoin from the user's perspective?
+How do they differ from the Merchant's perspective?}
+
+\Q{A-31} {How much is the transaction fee for a Bitcoin transaction and how is it 
+determined?}
+
+\Q{A-34} {How  is  the  difficulty  in  Bitcoin  block  hashing  adapted  so  that  it  
+(almost)  always  takes  about  10 minutes for the system to produce a new block, 
+regardless of the computational power that enters the system?}
+
+% \begin{thebibliography}{9}
+  % \bibitem{cossim} \url{https://en.wikipedia.org/wiki/Cosine_similarity}
+% \end{thebibliography}
 
 \end{document}
