@@ -24,27 +24,26 @@ def make_luhn(card_X_nbr):
             return 1
     
     return 0
-    
 
 if __name__ == '__main__':
-    print(sys.argv)
+    # print(sys.argv)
 
-    censored_list = []
-    answer_string = ""
+    # censored_list = []
+    # answer_string = ""
     
-    try:
-        list_file = open(sys.argv[1], 'r') 
-    except:
-        print("Which file?", end='\n\n')
-        sys.exit(42)
+    # try:
+    #     list_file = open(sys.argv[1], 'r') 
+    # except:
+    #     print("Which file?", end='\n\n')
+    #     sys.exit(42)
 
-    for line in list_file:
-       censored_list.append(line) 
+    # for line in list_file:
+    #    censored_list.append(line) 
     
-    for card_nbr in censored_list:
-        print('', end='')
-        digit = 0
+    # for card_nbr in censored_list:
+    #     print('', end='')
+    #     digit = 0
 
-        answer_string += str(digit)
+    #     answer_string += str(digit)
 
-    print(luhn("79927398713"))
+    print("Success!" if luhn("79927398713") != 0 else "Fail!")

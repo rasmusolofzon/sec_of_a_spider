@@ -28,7 +28,7 @@ class SPV_Node:
                 h.update(bytearray(path[i][1]))
             root = h.digest()
 
-        return root
+        return root.hex()
 
     def show_example(self):
         with open('merkle_path.txt', 'r') as f:
@@ -43,13 +43,14 @@ class Full_Node:
         file_lines = input_file.readlines()
 
         leaf = int(file_lines[0])
-        print(leaf)
+        # print(leaf)
+        j = int(file_lines[1])
         log = math.log2(len(file_lines)-2)
         # log = 3.75
         depth = int(log) if log % 2 == 0 else math.floor(log)+1
-        print(depth)
+        # print(depth)
         tree = {}
-        i = -2
+        i = 0
 
         print()
         for line in file_lines[2:]:
@@ -68,9 +69,35 @@ class Full_Node:
         print("\npost recursion:")
         tree = self.construct_tree_at_depth(tree, depth-1)
         for item in tree.items():
-            print("({0}, {1}), {2}".format(item[0][0], item[0][0], item[1].hex()))
-        
-        return "root and path"
+            print("({0}, {1}), {2}".format(item[0][0], item[0][1], item[1].hex()))
+
+        root = tree[(0, 0)].hex()
+
+        path = ""
+        path_index = leaf*2
+        path_node = ("", "")
+
+        for d in range(depth, 0, -1):
+            path_index = math.floor(path_index/2)
+            if path_index % 2 == 0: 
+                sibling = path_index+1 
+            else:
+                sibling = path_index-1 
+            path += 'R' if path_index % 2 == 0 else 'L'
+            path += str(tree[(sibling, d)].hex())
+            path += '\n'
+
+            if d == j:
+                path_node = ('L' if path_index % 2 == 1 else 'R', tree[(sibling, d)].hex())
+                print("\npath_node: {0}\n".format(path_node))
+                for item in tree.items():
+                    if item[1].hex() == path_node[1]:
+                        print("({0}, {1})".format(item[0], item[1].hex()))
+
+        path = path[:-1]
+        # print(path)
+
+        return root, path, path_node
 
     def construct_tree_at_depth(self, tree, depth):
         for i in range(int((max([index[0] for index in tree.keys() if index[1] == depth+1]) + 1)/2)):
@@ -87,23 +114,36 @@ class Full_Node:
 
         return tree
 
-
     def show_example(self):
         print()
         with open('full_node_example.txt', 'r') as f:
             i = -2
-            print("{0} \t{1}\t{2}".format("i", "sibling", "hash"))
+            print("{0} \t{1}\t\t{2}".format("i", "sibling", "hash"))
             for line in f:
-                print("{0} \t{1}\t{2}".format(i, 'R' if i % 2 == 1 else 'L', line), end='')
+                print("{0} \t{1}\t\t{2}".format(i, 'R' if i % 2 == 1 else 'L', line), end='')
                 i += 1
         print()
 
 if __name__ == "__main__":
+    full_n = Full_Node()
+    # full_n.show_example()
+    file_name = "test_full_node.txt"
+    # file_name = "full_node_example.txt"
+    with open(file_name, 'r') as f:
+        root, path, path_node = full_n.get_root_and_path(f)
+        print("\nroot: {0}".format(root))
+        print("path_node: {0}{1}".format(path_node[0], path_node[1]))
+        print("path: ", end="")
+        for line in path.splitlines():
+            print("\t{0}".format(line))
+
+        print("\n{0}{1}{2}".format(path_node[0], path_node[1], root))
+        # print(len("Rd6000578ba17ea5935dc4f2ba5fcea2416ff0ecef4f4cd35f5a3c801fb7e701c834bff87d2b3adaa"))
+    
     # spv_n = SPV_Node()
     # spv_n.show_example()
-
-    full_n = Full_Node()
-    full_n.show_example()
-    with open("full_node_example.txt", 'r') as f:
-        print(full_n.get_root_and_path(f))
-    
+    print()
+    # with open("test_spv.txt", 'r') as f2:
+    #     result = spv_n.lookup(f2)
+    #     print(result)
+    #     print("57252a732982c12a13cc88c66d286acee68b676e")

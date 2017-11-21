@@ -21,7 +21,6 @@ def generate_coins(u, k, c):
     iterations = 0
 
     while len(coin_list) < c:
-        # x = random.randrange(255).to_bytes(2, byteorder="big")
         # x = random.getrandbits(u).to_bytes(3, byteorder="big")
         x = random.getrandbits(4*8)
         x = x.to_bytes(4, byteorder="big")
@@ -55,9 +54,9 @@ if __name__ == '__main__':
                     3: (16, 2, 10000, 22),
                     4: (20, 7, 1, 79671),
                     5: (20, 7, 100, 15616),
-                    6: (20, 7, 10000, 4783)}
+                    6: (20, 7, 10000, 4783) }
     # choose combination of test parameters here:
-    combination = 6
+    combination = 1
 
     ci = math.inf
     iterations_list = []
@@ -73,18 +72,8 @@ if __name__ == '__main__':
     
     end_time = time.time() - start_time
     
-    print(iterations_list)
-    print("\n")
-    print("Mean of iterations: ", end="")
-    print(statistics.mean(iterations_list))
-    print("Standard deviation of iterations: ", end="")
-    print(statistics.stdev(iterations_list))
-    print("Median of iterations: ", end="")
-    print(statistics.median(iterations_list))
-    print("Time for execution: ", end="")
-    print(end_time)
-    
-    # test = [1, 2, 3, 4, 5]
-    # print(statistics.mean(test))
-    # print(statistics.stdev(test))
-    # print(statistics.variance(test))
+    print("\nThis took {0} iterations:\n{1}\n".format(len(iterations_list), iterations_list))
+    print("Mean of iterations: \t\t\t{0}".format(statistics.mean(iterations_list)))
+    print("Standard deviation of iterations: \t{0}".format(statistics.stdev(iterations_list)))
+    print("Median of iterations: \t\t\t{0}".format(statistics.median(iterations_list)))
+    print("Time for execution: \t\t\t{0}\n".format(end_time))
