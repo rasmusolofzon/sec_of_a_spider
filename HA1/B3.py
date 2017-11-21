@@ -1,10 +1,6 @@
 import hashlib
 
-# hexstring = "2354cf006ef4eeefeddf29b9e68d5cb1918ed589"
-# b_array = bytearray.fromhex(hexstring)
-# print(b_array)
-
-class Node:
+class SPV_Node:
     def lookup(self, input_file):
         path = {}
         i = 0
@@ -41,6 +37,10 @@ class Node:
             print("Should be \t\t{0}".format(facit))
             print("Correct? {0}".format(True if result == facit else False))
 
+class Full_Node:
+    def __init__(self):
+        pass    
+
 if __name__ == "__main__":
-    n = Node()
-    n.show_example()
+    spv_n = SPV_Node()
+    spv_n.show_example()
