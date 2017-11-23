@@ -127,7 +127,8 @@ class Full_Node:
 if __name__ == "__main__":
     full_n = Full_Node()
     # full_n.show_example()
-    file_name = "test_full_node.txt"
+    # file_name = "test_full_node.txt"
+    file_name = "valid_B3_full.txt"
     # file_name = "full_node_example.txt"
     with open(file_name, 'r') as f:
         root, path, path_node = full_n.get_root_and_path(f)
@@ -140,10 +141,10 @@ if __name__ == "__main__":
         print("\n{0}{1}{2}".format(path_node[0], path_node[1], root))
         # print(len("Rd6000578ba17ea5935dc4f2ba5fcea2416ff0ecef4f4cd35f5a3c801fb7e701c834bff87d2b3adaa"))
     
-    # spv_n = SPV_Node()
+    spv_n = SPV_Node()
     # spv_n.show_example()
     print()
-    # with open("test_spv.txt", 'r') as f2:
-    #     result = spv_n.lookup(f2)
-    #     print(result)
+    with open("valid_B3_node.txt", 'r') as f2:
+        result = spv_n.lookup(f2)
+        print(result)
     #     print("57252a732982c12a13cc88c66d286acee68b676e")

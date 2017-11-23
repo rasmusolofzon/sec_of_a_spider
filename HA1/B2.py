@@ -54,9 +54,10 @@ if __name__ == '__main__':
                     3: (16, 2, 10000, 22),
                     4: (20, 7, 1, 79671),
                     5: (20, 7, 100, 15616),
-                    6: (20, 7, 10000, 4783) }
+                    6: (20, 7, 10000, 4783), 
+                    7: (17, 6, 1, 4602) }
     # choose combination of test parameters here:
-    combination = 1
+    combination = 7
 
     ci = math.inf
     iterations_list = []
