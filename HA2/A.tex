@@ -6,10 +6,8 @@
 \usepackage[citestyle=numeric]{biblatex}
 \usepackage{textcomp}
 
-\newcommand{\Q}[2]{
-  \textbf{#1} \textit{#2}
- }
-\newcommand{\A}[1]{ #1 \\ }
+\newcommand{\Q}[2]{ \vspace{10pt} \textbf{#1} \textit{#2} }
+\newcommand{\A}[1]{ #1 }
 
 \title{Home Assignment 2 \\ EITN41}
 \author{Anon}
@@ -18,15 +16,23 @@
 \begin{document}
 \maketitle
 
-\Q{A-6} {
+\Q{A-6} { %joel
   What is the purpose of the random values $R_1$ in a Mix?
 }
 
 \A{
-  blah
+  The purpose of using random values $R_1$ in a Mix is
+  to hide the correspondence between inputs and outputs to the Mix.
+
+  Without $R_1$ the input to the Mix would be
+  $K_1(K_a(R_0,M),A)$. It would be trivial for an attacker to encrypt
+  the output $K_a(R_0,M),A$ with the Mix's public key $K_1$
+  and do a lookup in a list of recorded input messages 
+  and find the corresponding input, effectively linking
+  origin and destination.
 }
 
-\Q{A-7} {
+\Q{A-7} { %joel
   When sending a mail through several Mixes, there are several public keys 
   involved: $K_1,K_2, . . . ,K_n$ and $K_a$. 
   What happens if one does not use $K_a$? 
@@ -34,7 +40,20 @@
 }
 
 \A{
-  blah
+  If $K_a$ is used, the output of the mixes look like this:
+  \begin{displaymath}
+    K_a(R_0,M),A
+  \end{displaymath}
+
+  Without using $K_a$, the output should be:
+  \begin{displaymath}
+    R_0,M,A
+  \end{displaymath}
+
+  This means that the randomness $R_0$ is superfluous 
+  and the message $M$ is sent in plaintext. This does not
+  directly mean that the sender's anonymity is risked, but 
+  it could be deduced from $M$.
 }
 
 \Q{A-8} {
@@ -55,16 +74,38 @@
 }
 
 \A{
-  blah
+  \begin{enumerate}
+    \item Calculate hash for each input message and store this.
+    Do a lookup of all subsequent messages, if one matches, 
+    throw away.
+    \item Include a timestamp in each input, to verify that 
+    the message is 'fresh'.
+  \end{enumerate}
+
+  One difference to consider is the storage and computational
+  issues with using hashes: computational for calculating
+  hashes and doing later lookups, storage for storing hashes of
+  all messages, whose cardinality can be quite large.
+
+  TODO: write abt combination
 }
 
-\Q{A-13} {
+\Q{A-13} { %joel
   It is straightforward to generalize the N - 1 attack to an 
   N - k attack, 0 $<$ k $<$ N. Describe the N - k attack.
 }
 
 \A{
-  blah
+  The general idea of a N - 1 attack is to reduce the size of
+  the anonymity set for a user. An attacker controls exactly N - 1 
+  inputs to the Mix (total inputs = N). The attacker knows
+  the recipients to their N - 1 messages and therefore the only 
+  message they didn't send is the one sent by the victim.
+  The generalization of this is that an attacker controls N - k
+  inputs. Even if this attack is not as effective as the N - 1
+  attack, it still reduces the anonymity set of a target user 
+  to the size k, which from the attackers point of view
+  is something positive.  
 }
 
 \Q{A-15} {
@@ -73,7 +114,13 @@
 }
 
 \A{
-  blah
+  \begin{itemize}
+    \item \textbf{m} The result of a successful attack. 
+    \textit{m} sets with exactly one recipient, then these \textit{m}
+    recipients are \underline{Alice's communication partners}. 
+    \item \textbf{N} a
+    \item \textbf{n} The number of receivers.
+  \end{itemize}
 }
 
 \Q{A-26} {
