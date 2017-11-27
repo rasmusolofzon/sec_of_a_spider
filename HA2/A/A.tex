@@ -53,7 +53,7 @@
   This means that the randomness $R_0$ is superfluous 
   and the message $M$ is sent in plaintext. This does not
   directly mean that the sender's anonymity is immediately revealed
-  , but the anonymity could be deduced from $M$.
+  , but the identity could be deduced from $M$.
 }
 
 \Q{A-8} {
@@ -63,7 +63,13 @@
 }
 
 \A{
-  blah
+  In an onion routing circuit, asymmetric keys are used to negotiate symmetric
+  keys with routers. These symmetric keys are then used to encrypt messages. 
+  With using several Mixes, a sender has to encrypt their
+  message with each Mix's public key. 
+  Symmetric cryptography is faster than asymmetric cryptography,
+  meaning that the latency is lower in an onion routing circuit than
+  with using several Mixes.
 }
 
 \Q{A-12} {
@@ -86,8 +92,6 @@
   issues with using hashes: computational for calculating
   hashes and doing later lookups, storage for storing hashes of
   all messages, whose cardinality can be quite large.
-
-  TODO: write abt combination
 }
 
 \Q{A-13} { %j
@@ -136,7 +140,15 @@
 }
 
 \A{
-  blah
+  When a client wants to connect, they use a variant of Diffie-Hellman
+  key exchange and the server's (router's) public key to negotiate a symmetric 
+  key. This symmetric key is then used to encrypt messages.  
+  This works on the basis that symmetric cryptography is faster 
+  than asymmetric cryptography.
+  The negotiated symmetric key is then changed fairly often, 
+  each time the circuit changes and new nodes are to be connected to
+  symmetric keys have to be negotiated with these.
+  The frequency of changing circuits can be decided by the user.
 }
 
 \Q{A-28} {
