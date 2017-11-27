@@ -22,6 +22,8 @@
 \begin{document}
 \maketitle
 
+Grading: $(0.9+0.8+0.7+1.0+1.0+0.8+1.0)=$ \textbf{6.2}
+
 \Q{A-7} {Is SSL required in SET? Motivate your answer.}
 
 \A{
@@ -58,7 +60,20 @@ them briefly.}
   often resides at a third-party, introducing doubt or even phishing vulnerabilities into the concept.
 }
 
-\Grade{0.0}{}
+\Grade{0.8}{
+  ACS in Interoperability domain not correct according to page 15-16 of
+  \url{https://usa.visa.com/dam/VCOM/download/merchants/verified-by-visa-acquirer-merchant-implementation-guide.pdf}. 
+  It is in the Issuer domain. This is, however, 
+  not clearly stated in the lecture slides (page 9) but still expressed there 
+  ("\textit{On the issuer's side the most important part is the Access Control Server 
+  $[...]$}")
+  Correct about outsourcing/third-party mention (lecture slides).
+  The insight about a hurried customer choosing weak passwords 
+  (and also phishing apprehensions) is also
+  mentioned in 
+  \url{http://sec.cs.ucl.ac.uk/users/smurdoch/papers/fc10vbvsecurecode.pdf}
+  , page 338.
+}
 
 \Q{A-12} {How is mutual authentication between issuer and cardholder achieved in
 VbV (3D Secure)?}
@@ -76,7 +91,16 @@ VbV (3D Secure)?}
   authentication is performed.
 }
 
-\Grade{0.0}{}
+\Grade{0.7}{
+  Good point about risk for phishing attacks. However,
+  the Issuer provides the User's personal message
+  as a kind of authentication.
+
+  The User's authentication towards the Issuer is not explicitly mentioned here,
+  but by the reference to question A-11 and the parens 
+  \textit{"(often just a password validation with the issuing bank)"}
+  the question could be deemed answered.
+}
 
 \Q{A-14} {The multiplicative property of RSA provides for blind signatures. What is meant by ”the multiplicative property of RSA”?}
 
@@ -85,7 +109,9 @@ VbV (3D Secure)?}
   to the encrypted product of the plaintext messages, E(m1) * E(m2) = E(m1 * m2).
 }
 
-\Grade{0.0}{}
+\Grade{1.0}{
+  Correct, according to \url{http://www.eit.lth.se/fileadmin/eit/courses/eit060/lect/Lect2-3.pdf}, slide 23 and slide 6 of 'ElectronicPayments\_2' in this course. 
+}
 
 \Q{A-22} {Briefly explain the differences between session-level aggregation,
 aggregation by intermediation and universal aggregation.}
@@ -110,7 +136,9 @@ aggregation by intermediation and universal aggregation.}
   \end{itemize}
 }
 
-\Grade{0.0}{}
+\Grade{1.0}{
+  All correct, according to lecture notes.
+}
 
 \Q{A-29} {What  is  meant  by  a  probabilistic  payment?   How  does  the  
 Electronic  Lottery  Tickets  scheme  differ from Peppercoin from the user's perspective?
@@ -157,6 +185,8 @@ regardless of the computational power that enters the system?}
   and the time is held at a constant 10 minutes.
 }
 
-\Grade{0.0}{}
+\Grade{1.0}{
+  Correct according to lecture notes.
+}
 
 \end{document}

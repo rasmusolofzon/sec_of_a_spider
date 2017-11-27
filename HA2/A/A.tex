@@ -145,14 +145,12 @@
 }
 
 \A{
-  blah
+  When RSA is used in the SSL/TLS handshake, the client generates a session key
+  and encrypts this with the server's public key.
+  The weak point here is that if somebody steals the server's private key,
+  they can decrypt all previous sessions. This situation is precisely what 
+  perfect forward secrecy provides protection against. 
+  In the draft for TLS 1.3 support for RSA without pfs is dropped.
 }
-
-% \begin{thebibliography}{9}
-  % \bibitem{cossim} \url{https://en.wikipedia.org/wiki/Cosine_similarity}
-% \end{thebibliography}
-
-% Uploaded file: A.pdf
-% File saved as: a4c2b8ad79eabee2_HA1_solution.pdf
 
 \end{document}

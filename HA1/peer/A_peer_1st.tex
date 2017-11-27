@@ -7,7 +7,7 @@
 \usepackage{textcomp}
 
 \newcommand{\Q}[2]{
-  \textbf{#1} \textit{#2}
+  \vspace{10pt} \textbf{#1} \textit{#2}
  }
 \newcommand{\A}[1]{ #1 }
 \newcommand{\Grade}[2]{ 
@@ -21,6 +21,8 @@
 
 \begin{document}
 \maketitle
+
+Grading: $(0.7+0.9+0.8+0.8+1.0+1.0+1.0+0.6)=$\textbf{6.8}
 
 \Q{A-4} {
   Give two common ways to prove/make probable that the person making
@@ -72,7 +74,16 @@
   PS sorry for this wall of text.
 }
 
-\Grade{0.0}{}
+\Grade{0.7}{
+  \textit{Conciseness is a virtue.}
+
+  I would argue that the 3D secure authentication with password by
+  User and PAM by Issuer is not so much two-factor authentication
+  as a mutual single-factor authentication.
+
+  Otherwise, this very extensive answer is good. It agrees with the lecture
+  slides and notes.
+}
 
 \Q{A-6} {In SET, why is the Payment Information first symmetrically encrypted
 and not immediately encrypted with the Gateway's public key?}
@@ -89,7 +100,11 @@ and not immediately encrypted with the Gateway's public key?}
   dual signature.
 }
 
-\Grade{0.0}{}
+\Grade{0.9}{
+  Good, encrypting with symmetric key and then encrypting the symmetric
+  key with an asymmetric key is a classic technique for speeding up
+  but still keeping it reasonably secure.
+}
 
 \Q{A-12} {How is mutual authentication between issuer and cardholder achieved
 in VbV (3D Secure)?}
@@ -101,7 +116,10 @@ in VbV (3D Secure)?}
   which is assumed secret to only this person.
 }
 
-\Grade{0.0}{}
+\Grade{0.8}{
+  The description of the things provided by Issuer and User is correct,
+  however (again) the use of two-factor authentication I do not agree with.
+}
 
 \Q{A-14} {The multiplicative property of RSA provides for blind signatures. What
 is meant by "the multiplicative property of RSA"?}
@@ -111,13 +129,19 @@ is meant by "the multiplicative property of RSA"?}
   encryption of x and * is an arbitrary operation.
 }
 
-\Grade{0.0}{}
+\Grade{0.8}{
+  I would say that "arbitrary operation" is not technically correct, but
+  at least addition and multiplication fits in there (\url{http://www.eit.lth.se/fileadmin/eit/courses/eit060/lect/Lect2-3.pdf}, slide 23. Or, slide 6 of 'ElectronicPayments\_2' in this course). Otherwise,
+  good answer.
+}
 
 \Q{A-15}{When requesting a blind signature, why must Alice keep r secret?}
 
 \A{...}
 
-\Grade{0.0}{}
+\Grade{1.0}{
+  Correct, according to lecture notes.
+}
 
 \Q{A-18} {When Alice buys something from Bob using the untraceable E-cash
 scheme, why is it impossible for Bob to learn the identity of Alice?}
@@ -126,7 +150,11 @@ scheme, why is it impossible for Bob to learn the identity of Alice?}
   ...
 }
 
-\Grade{0.0}{}
+\Grade{1.0}{
+  Correct, according to lecture notes, page 13: "Still, Bob can not 
+  compute ID since he does not have both $a_j$ and $a_j$ $\oplus$ $ID$
+  for any $j$."
+}
 
 \Q{A-28} {Compare the PayWord protocol and the Peppercoin-like protocol in the
 lecture notes from the point of view of the customers, both in terms of what they
@@ -136,7 +164,9 @@ pay, and in terms of what they need to compute to make a purchase.}
   ...
 }
 
-\Grade{0.0}{}
+\Grade{1.0}{
+  According to the lecture notes, page 16 and 17, this answer is correct.
+}
 
 \Q{A-29} {What  is  meant  by  a  probabilistic  payment?   How  does  the  
 Electronic  Lottery  Tickets  scheme  differ from Peppercoin from the user's perspective?
@@ -151,8 +181,8 @@ How do they differ from the Merchant's perspective?}
   nothing". It is probable, but not guaranteed. In a larger timescale it will average out.
 
   An important factor this answer does not treat is where the psychological load is placed: 
-  In (ELT), the psychological load is placed on the User in that they sometimes pay more than they have
-  actually spent. In Peppercoin the User never pays more than they have actu-
+  In (ELT), the psychological load is placed on the User in that they sometimes pay more than they have actually 
+  spent. In Peppercoin the User never pays more than they have actu-
   ally spent and the psychological load is taken by the Bank.
 
   Otherwise the information seems correct according to the lecture slides.
