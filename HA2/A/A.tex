@@ -52,8 +52,8 @@
 
   This means that the randomness $R_0$ is superfluous 
   and the message $M$ is sent in plaintext. This does not
-  directly mean that the sender's anonymity is risked, but 
-  it could be deduced from $M$.
+  directly mean that the sender's anonymity is immediately revealed
+  , but the anonymity could be deduced from $M$.
 }
 
 \Q{A-8} {
@@ -103,8 +103,8 @@
   message they didn't send is the one sent by the victim.
   The generalization of this is that an attacker controls N - k
   inputs. Even if this attack is not as effective as the N - 1
-  attack, it still reduces the anonymity set of a target user 
-  to the size k, which from the attackers point of view
+  attack, it still reduces the size of the anonymity set of a target user 
+  to the size k, which from the attacker's point of view
   is something positive.  
 }
 
@@ -115,12 +115,16 @@
 
 \A{
   \begin{itemize}
-    \item \textbf{m}: The result of a successful attack. 
-    \textit{m} sets with exactly one recipient, then these \textit{m}
-    recipients are \underline{Alice's communication partners}. 
+    \item \textbf{m}: The number of \underline{Alice's communication partners}. This is also the result of a successful attack, 
+    $m$  sets with exactly one recipient, then these \textit{m}
+    recipients are Alice's communication partners. 
     \item \textbf{N}: The total number of users in the anonymity system.
     \item \textbf{n}: The number of receivers in a batch.
   \end{itemize}
+
+  A Mix is insecure if $m \leq [N / n]$ because if $m > [N / n]$
+  then $N$ cannot be divided into $m$ sets of size $n$. The implication of this 
+  is that $m$ recipients cannot be found.
 }
 
 \Q{A-26} {
