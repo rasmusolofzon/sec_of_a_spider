@@ -1,17 +1,16 @@
 import argparse
 import binascii
 import multiprocessing as mp
-# from mp import Process, Queue
 
 def dinner(q, dinner_input):
     if dinner_input[6] == 1:
-        dinner_output = dinner_input[1] ^ dinner_input[2] ^ dinner_input[5]
+        own_broadcast = dinner_input[1] ^ dinner_input[2] ^ dinner_input[5]
+        msg = own_broadcast ^ dinner_input[3] ^ dinner_input[4]
     else:
-        dinner_output = dinner_input[1] ^ dinner_input[2] ^ 0
-    
-    msg = dinner_output ^ dinner_input[3] ^ dinner_input[4]
+        own_broadcast = dinner_input[1] ^ dinner_input[2] ^ 0
+        msg = ( own_broadcast ^ dinner_input[3] ^ dinner_input[4] ) << dinner_input[0]
 
-    q.put((dinner_input[0], dinner_output, msg))
+    q.put((dinner_input[0], own_broadcast, msg))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="A 16 bit Dining Cryptographers net.", epilog="Please specify all parameters (except -h, of course).")
@@ -51,12 +50,14 @@ if __name__ == "__main__":
     while len(dinner_output) < 16:
         dinner_output.append(q.get())
     
-    for output in dinner_output:
-        print(output)
-    
     result = 0
     for output in dinner_output:
-        result = result | (output[1] << output[0])
+        print(output)
+        if args.b == 0:
+            result = result | (output[1] << ( 16 + output[0]) )
+            result =  result | output[2]
+        elif args.b == 1:
+            result = result | (output[1] << output[0] )
     
     print("\n\nProgram output is: {0}".format(hex(result)).upper())
 
@@ -65,29 +66,19 @@ if __name__ == "__main__":
     # print(binascii.hexlify(sa).decode('utf-8').upper())
     # print(binascii.unhexlify(args.sb))
 
-    # print('0C73')
-    # test = str(bin(int('0C73', 16)))
-    # print(test[:4])
-    # print(int('0C73', 16))
-
     '''
-        ta in argument
-        dela upp i ihophörande bitar
-            skicka in dessa tupler i varsin process
-                if b == 1:
-                    broadcast = SA ^ SB ^ M
-                elif b == 0:
-                    broadcast = SA ^ SB ^ 0
-                    randomise if Alice, Bob or None sends msg
-                        do this..
-                msg = broadcast ^ DA ^ DB
-                return msg, broadcast
-            samla returns från alla 16 processer
-            ge alla returns, samlade
+    assignment test string #1
+        python B1.py --sa 0C73 --sb 80C1 --da A2A9 --db 92F5 --m 9B57 --b 0 
+            result 0x8CB2BCEE
 
-    python B1.py --sa 0C73 --sb 80C1 --da A2A9 --db 92F5 --m 9B57 --b 0 
-
-    27C2 0879 35F6 1A4D 27BC 1 0807
-    python B1.py --sa 27C2 --sb 0879 --da 35F6 --db 1A4D --m 27BC --b 1 
-        result 0807
+    assignment test string #2
+        python B1.py --sa 27C2 --sb 0879 --da 35F6 --db 1A4D --m 27BC --b 1 
+            result 0807
+    
+    testquiz #1
+        python B1.py --sa bf0d --sb 3c99 --da 186f --db 2ead --m 62ab --b 0
+            result 0x8394B556
+     testquiz #2
+        python B1.py --sa d75c --sb ee87 --da c568 --db fcb3 --m 4674 --b 1
+            result 0x7FAF
     '''
