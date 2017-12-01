@@ -7,7 +7,7 @@
 \usepackage{textcomp}
 
 \newcommand{\Q}[2]{ \vspace{10pt} \textbf{A-#1} \textit{#2} }
-\newcommand{\A}[1]{ #1 }
+\newcommand{\A}[1]{ \textbf{Answer:} #1 }
 
 \title{Home Assignment 4 \\ EITN41}
 \author{}
@@ -16,12 +16,28 @@
 \begin{document}
 \maketitle
 
-\Q{2} {
+\Q{2} { %
     What problem in OTR is solved using the Socialist Millionaire Problem?
 }
 
 \A{
-    TODO
+    Authentication, and mitigating MitM (Man-in-the-Middle) attacks. 
+    The authentication is ultimately done by a low-entropy shared
+    secret, which is "baked in" into, and protected, in the protocol.
+    The mitigation is achieved by utilising the Diffie-Hellman
+    problem (given $g$, $p$, $g^x$ and $g^y$ it is infeasible 
+    to find $g^{xy}$). In order for both parties to verify 
+    each others public key fingerprint, the fingerprint is
+    concatenated with the negotiated Diffie-Hellman secret 
+    and the shared low-entropy secret. This concatenated value 
+    is then hashed:
+
+    $$H(PK_A || PK_B || g^{x_1y_1} || "shared secret")$$
+
+    Because of the Diffie Hellman problem, the "shared secret" value 
+    cannot be brute forced. An aspiring MitM attacker also has
+    to guess the secret in one try, otherwise the communicating
+    parts will see that the protocol has failed.
 }
 
 \Q{4} {
@@ -29,7 +45,11 @@
 }
 
 \A{
-    TODO
+    A MAC is calculated on each message, after every message the MAC key used 
+    for that message is released and a new one is calculated/agreed upon
+    for the next message. This means that the MAC keys are 'fresh' for only
+    one message and that any later use of it directly gives
+    the attacker away.
 }
 
 \Q{7} {
@@ -67,21 +87,53 @@
     TODO
 }
 
-\Q{18} {
+\Q{18} { %
     In OAuth, explain why the access token must not be cached, and how this is 
     achieved.
 }
 
 \A{
-    TODO
+    The Authorisation Server returns an access token with a 200,
+    the data in JSON format. The 200 has header options
+    telling the receiver (Client) to not cache the token (and data).
+
+    \texttt{Cache-Control: no-store}, this is the \textit{don't cache}
+    command, if you will. 
+
+    \texttt{Pragma: no-cache}
+
+    Interestingly: \url{https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.32}
 }
 
-\Q{20} {
+\Q{20} { %
     What is a grant? Name and describe a few different grants.
 }
 
 \A{
-    TODO
+    It is a sort of attestation, or authorisation promise. 
+    The Resource Owner grants a Client access to certain resources
+    the Owner owns. This can be used by the Client to request
+    an Access Token from the Authorisation Server.
+    The process for this can be different for different types
+    of grants. The four types / classes described in the lecture notes are:
+
+    \begin{itemize}
+        \item \textbf{Authorisation code - }
+            the Client receives a code, which is used
+            when they request access from Authorisation Server.
+        \item \textbf{Implicit grant - }
+            the Client receives a token directly from the Authorisation
+            Server.
+        \item \textbf{Resource Owner Password Credentials grant - }
+            Resource Owner gives Client their own login credentials
+            for the Authorisation Server. Using these, the Client 
+            receives a token from the server.
+        \item \textbf{Client Credentials grant - }
+            Here the Resource Owner is not involved. The Client
+            directly from Authorisation Server after provding
+            their own credentials.
+    \end{itemize}
+
 }
 
 \end{document}
