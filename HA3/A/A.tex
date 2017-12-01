@@ -41,7 +41,11 @@
 }
 
 \A{
-  TODO
+  The "explicit" variant is the one first described in the lecture notes.
+  
+  The "non-explicit" variant is the variant of the second one, used in
+  4.3 'Using Homomorphic Encryption'. 
+  It is not the actual message $m$ that is decrypted but instead $w^m$ mod q.
 }
 
 \Q{14} {
@@ -51,7 +55,9 @@
 }
 
 \A{
-  TODO
+  Computational. A hash function is used, and it is inversible. 
+  It is only unfeasibly difficult to do so. 
+  Most can also be found collisions to.
 }
 
 \Q{15} {
@@ -62,7 +68,10 @@
 }
 
 \A{
-  TENTATIVE: Timing attack? 
+  If there is an error (Voter is not registered correctly, a Mix is corrupt etc) then this will 
+  not be discovered until the voting already has been carried out. 
+  This has the potential of disturbing a re-election triggered by the
+  erroneous management, which breaks the fairness property.
 }
 
 \Q{19} {
@@ -73,7 +82,16 @@
   }
 
 \A{
-  TODO
+%  A voter's vote is 'packed in' into one of the first things they send,
+%  $h(v,k)$. This is, after going through more functions and the Administrator
+%  (who signs it), put on the bulletin board: inside $e_i$ (and also $s_i$, but 
+%  that is just $e_i$ signed by voter). 
+
+  A voter can check their vote on the Bulletin Board after the Voting phase,
+  then their x is up there. They can see if it is the same value as when they
+  calculated it. If it is, they send their secret k so that the Counter
+  can extract the voter's vote, v. Before the voter send their k, 
+  their vote is unextractable and therefore untalliable.
 }
 
 \Q{22} {
@@ -86,7 +104,15 @@
 }
 
 \A{
-  TENTATIVE: Blind signature scheme?
+  \underline{Threshold encryption scheme}. 
+  The vote can be counted because of the homomorphic encryption properties:
+  in the encrypted space, the ciphertext can be multiplied and this
+  brings the same result as multiplication of the plaintext. 
+  We use this in the way that the votes are put in an exponent, this means
+  that the votes will be added to each other. The final result is produced
+  (in the -1, 1 case) by adding all votes together, positive if there are
+  more positive values than negative values and vice versa. Since the 
+  votes are encrypted, privacy/anonymity is preserved.
 }
 
 \Q{23} {
@@ -95,7 +121,13 @@
 }
 
 \A{
-  TODO
+  If they do not use -1 or 1, their vote will be weighted more than others.
+  The sign of the exponent of $w^{\sum_{t-1}^{m} v_i}$ is what is taken as the
+  final result. Two very simple examples to illustrate the difference:
+  \{ $w_1 = -1$, $w_2 = 1$, $w_3 = -1$ \}, a correct procedure. Here the result will be negative, as it should be when it is two against one. 
+  \{ $w_1 = -1$, $w_2 = 3$, $w_3 = -1$ \}, an incorrect procedure. Here the result
+  will be positive, which it should not be when it is
+  two against one.
 }
 
 \Q{25} {
@@ -104,7 +136,10 @@
 }
 
 \A{
-  TODO
+  The Voter is listed, uniquely on the Bulletin Board. This means that they
+  (and everyone else) knows that they voted. This does not reveal what they 
+  voted for, but at least \textit{that} they voted. So not full 
+  receipt-freeness.
 }
 
 \end{document}
