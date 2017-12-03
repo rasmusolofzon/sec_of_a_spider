@@ -58,7 +58,7 @@
 }
 
 \A{
-    TODO
+    \url{https://www.w3schools.com/tags/ref_httpmethods.asp}
 }
 
 \Q{9} {
@@ -93,16 +93,23 @@
 }
 
 \A{
+    If the token is cached, 
+
     The Authorisation Server returns an access token with a 200,
     the data in JSON format. The 200 has header options
     telling the receiver (Client) to not cache the token (and data).
 
     \texttt{Cache-Control: no-store}, this is the \textit{don't cache}
     command, if you will. 
+    \url{https://tools.ietf.org/html/rfc7234#section-5.2.1.5}
 
-    \texttt{Pragma: no-cache}
+    \texttt{Pragma: no-cache}, this is mostly used for backwards 
+    compatibility, \url{https://tools.ietf.org/html/rfc7234#section-5.4}.
+    If HTTP 1.0 is used, Cache-Control is not understood,
+    in this case Pragma specifies \textit{don't cache}. 
+    If Cache-Control is understood, Pragma is ignored.
 
-    Interestingly: \url{https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.32}
+    % Interestingly: \url{https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.32}
 }
 
 \Q{20} { %
