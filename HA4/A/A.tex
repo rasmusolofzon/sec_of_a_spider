@@ -84,7 +84,12 @@
 }
 
 \A{
-    TODO
+   \begin{itemize} 
+        \item SAML requires a trust relationship between IdP and SP.
+        \item ?
+        \item ?
+        \item ?
+   \end{itemize}
 }
 
 \Q{11} {
@@ -92,7 +97,20 @@
 }
 
 \A{
-    TODO
+    "Discovery" is in the lecture notes defined as 
+    a method for an SP/RP
+    "\textit{to get information about how to proceed with the 
+    authentication request.}"
+
+    \textbf{OpenID}: this can be done either by finding an XRDS
+    document with the necessary information or by finding an
+    HTML page that holds the information.
+
+    \textbf{SAML}: does not specify how to do this. 
+    There exists a SAML profile called
+    "\textit{SAML identity provider discovery profile}"
+    that can be used for this.
+    The SP can also use another service for this.
 }
 
 \Q{12} {
@@ -101,7 +119,21 @@
 }
 
 \A{
-    TODO
+    \begin{itemize}
+        \item OpenID
+        \begin{itemize}
+            \item Direct Communication: can only be initiated by RP.
+                RP sends direct requests to OP.
+            \item Indirect Communication: can be initated by RP or OP.
+                Messages are passed through the user-agent.
+        \end{itemize}
+        \item SAML
+        \begin{itemize}
+            \item IdP initiates communication.
+            \item SP initiates communication.
+            \item ?
+        \end{itemize}
+    \end{itemize}
 }
 
 \Q{18} { %
@@ -110,8 +142,6 @@
 }
 
 \A{
-    If the token is cached, 
-
     The Authorisation Server returns an access token with a 200,
     the data in JSON format. The 200 has header options
     telling the receiver (Client) to not cache the token (and data).
