@@ -21,23 +21,30 @@
 }
 
 \A{
-    Authentication, and mitigating MitM (Man-in-the-Middle) attacks. 
-    The authentication is ultimately done by a low-entropy shared
-    secret, which is "baked in" into, and protected, in the protocol.
-    The mitigation is achieved by utilising the Diffie-Hellman
-    problem (given $g$, $p$, $g^x$ and $g^y$ it is infeasible 
-    to find $g^{xy}$). In order for both parties to verify 
-    each others public key fingerprint, the fingerprint is
-    concatenated with the negotiated Diffie-Hellman secret 
-    and the shared low-entropy secret. This concatenated value 
-    is then hashed:
+    In the first scenario (section 1.4 in the lecture notes)
+    it is assumed that Alice and Bob knows each other's public keys,
+    mitigating the risk for a potential MitM attack.
+    The problem solved by SMP is the agreement on keys,
+    here Alice and Bob does not need to know each other's public keys
+    in advance.
 
-    $$H(PK_A || PK_B || g^{x_1y_1} || "shared secret")$$
+    % Authentication, and mitigating MitM (Man-in-the-Middle) attacks. 
+    % The authentication is ultimately done by a low-entropy shared
+    % secret, which is "baked in" into, and protected, in the protocol.
+    % The mitigation is achieved by utilising the Diffie-Hellman
+    % problem (given $g$, $p$, $g^x$ and $g^y$ it is infeasible 
+    % to find $g^{xy}$). In order for both parties to verify 
+    % each others public key fingerprint, the fingerprint is
+    % concatenated with the negotiated Diffie-Hellman secret 
+    % and the shared low-entropy secret. This concatenated value 
+    % is then hashed:
 
-    Because of the Diffie Hellman problem, the "shared secret" value 
-    cannot be brute forced. An aspiring MitM attacker also has
-    to guess the secret in one try, otherwise the communicating
-    parts will see that the protocol has failed.
+    % $$H(PK_A \,||\, PK_B \,||\, g^{x_1y_1} \,||\, "shared \; secret")$$
+
+    % Because of the Diffie Hellman problem, the "shared secret" value 
+    % cannot be brute forced. An aspiring MitM attacker also has
+    % to guess the secret in one try, otherwise the communicating
+    % parts will see that the protocol has failed.
 }
 
 \Q{4} {
@@ -57,8 +64,18 @@
     HTTP GET method? What alternatives are there?
 }
 
-\A{
-    \url{https://www.w3schools.com/tags/ref_httpmethods.asp}
+\A{    % \url{https://www.w3schools.com/tags/ref_httpmethods.asp}
+    Partly because a GET is an insecure method, all parameters are 
+    included in the URL and GETs can be cached and also stored in 
+    browser history
+    potentially enabling someone to use an earlier authentication
+    without doing a present authentication,
+    partly because the parameters are included in the URL, 
+    and the size of the response is usually larger
+    than the Subjects user-agent (e.g. browser)
+    can handle.
+
+    An alternative is an artifact binding.
 }
 
 \Q{9} {
