@@ -19,7 +19,9 @@
 
 \A{
     In implicit tagging the class is context-specific.
-    In explicit tagging the class needs an outer tag in order to be
+    The universal tag is replaced by a context-specific tag.
+    In explicit tagging the class needs an outer tag environment 
+    (in addition to the original tag) in order to be
     sufficiently specified.
 }
 
@@ -29,15 +31,31 @@
 }
 
 \A{
+    \texttt{DEFAULT} lets one specify a default value for a type.
+    \texttt{OPTIONAL} can be used to define a value that is optional
+    and does not have to exist.
 }
 
-\Q{13} {
+\Q{13} { %
     In ASN.1, an INTEGER has tag value 0x02, which is BER encoded to 0x02.
-    A SEQUENCE has tax 0x10, which is BER encoded to 0x30.
+    A SEQUENCE has tag 0x10, which is BER encoded to 0x30.
     Explain the discrepancy.
 }
 
-\A{}
+\A{
+    It has to do with \textit{Primitive} and \textit{Constructed}
+    types. A Primitive type means that the value is the actual value 
+    of the type, and a Constructed type means that the value is
+    itself a series of TLV (Type-Length-Value) encodings.
+    The \texttt{P/C} bit in an identifier byte specifies the type 
+    (0 for primitive and 1 for constructed).
+    A \texttt{BOOLEAN} is just a value, hence a Primitive type,
+    and its identifier byte will give 0b0000 0000 (00 in the 
+    beginning because a \texttt{BOOLEAN} is a universal class).
+    A \texttt{SEQUENCE} will be a constructed type, hence the
+    identifier byte will be 0b0011 0000, which is 0x30.
+    That is why there is a discrepancy.
+}
 
 \Q{17} {
     For signed-data in CMS, several signers can sign the same data. 
@@ -45,6 +63,11 @@
 }
 
 \A{
+    It is achieved with the \texttt{signerInfo} field of the 
+    \texttt{SignedData} type. In it, a \texttt{SET OF SignerInfo}
+    describes the signers of the data and things like the algorithm
+    used (\texttt{signatureAlgorithm}), their CMS version (\texttt{version})
+    and their signature (\texttt{signature}). 
 }
 
 \Q{18} {
@@ -53,6 +76,13 @@
 }
 
 \A{
+    Here the six types of data is intended, i. e. Data Type,
+    Signed-Data Type etc. Note that the Data Type usually is
+    embedded in one of the other five data types.
+
+    The motivation for these different types are that data
+    needs to be represented in different ways in different
+    ways in different protocols, and this facilitates that.
 }
 
 \Q{20} {
@@ -63,6 +93,12 @@
 }
 
 \A{
+    As mentioned in A-17, the signatures are "stored" in a type 
+    \texttt{SignerInfo}. Here, each signature is mapped to a signer's
+    identity (\texttt{SignerIdentifier}).
+    Therefore, it does not matter that a \texttt{SET} is unordered,
+    because a mapping between signed data and signer is included in the
+    \texttt{SET}.
 }
 
 \Q{23} {
@@ -73,6 +109,10 @@
 }
 
 \A{
+    This corresponds to Password Integrity Mode. We should use 
+    a \texttt{Data Type} inside an \texttt{Encrypted-Data Type} inside a 
+    \texttt{Digested-Data Type} or a \texttt{Authenticated-Data Type}.
+    So, a number of three (3) ContentTypes.
 }
 
 \Q{24} {
@@ -84,6 +124,7 @@
 }
 
 \A{
+    -
 }
 
 \end{document}
