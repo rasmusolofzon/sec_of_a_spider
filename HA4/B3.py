@@ -47,11 +47,11 @@ def mgf1(mgf_seed, mask_len):
 
     for counter in range( math.ceil(mask_len / h_len) ):
         C = i2osp(counter, 4) 
-        print("C is: {0}".format(C))
+        # print("C is: {0}".format(C))
         h = hashlib.sha1(mgf_seed + C)
         dig = bytearray(h.digest())
         T += dig
-        print("T is: {0}".format(T))
+        # print("T is: {0}".format(T))
 
     return T[:mask_len]
 
@@ -84,23 +84,30 @@ def oaep_encode(message, seed):
     octet_of_one = bytearray(one.to_bytes(1, byteorder="big"))
 
     db = l_hash + ps + octet_of_one + message
-    print(binascii.hexlify(db))
+    print("\nk - h_len - 1 = {0}".format(k-h_len-1))
+    print("len(db) = {0}\n".format(math.ceil(len(binascii.hexlify(db))/2)))
+    print("db = \t{0}".format(binascii.hexlify(db)))
 
     db_mask = mgf1(seed, k - h_len - 1)
+    print("db_mask = \t{0}".format(binascii.hexlify(db_mask)))
     masked_db = bytearray(k - h_len - 1)
-    print(binascii.hexlify(masked_db))
     for i in range(k - h_len - 1):
         # print("masked = {0}, db = {1}, db_mask = {2}".format(masked_db[i], db[i], db_mask[i]))
         masked_db[i] = db[i] ^ db_mask[i]
+    print("masked_db: \t{0}\n".format(binascii.hexlify(masked_db)))
 
     seed_mask = mgf1(masked_db, h_len)
-    masked_seed = bytearray(math.ceil(len(db)/2))
-    for i in range(math.ceil(len(seed)/2)):
+
+    print("\nseed_mask = \t{0}".format(binascii.hexlify(seed_mask)))
+    print("seed = \t\t{0}".format(binascii.hexlify(seed)))
+    masked_seed = bytearray(len(seed))
+    for i in range(len(seed)-1):
         masked_seed[i] = seed[i] ^ seed_mask[i]
+    print("masked_seed = \t{0}\n".format(binascii.hexlify(masked_seed)))
 
     encoded_message = bytearray(b'\00') + masked_seed + masked_db
 
-    print(math.ceil(len(binascii.hexlify(encoded_message)) / 2))
+    print("len(EM) = {0}\n".format(math.ceil(len(binascii.hexlify(encoded_message)) / 2)))
     return binascii.hexlify(encoded_message)
 
 def oaep_decode(encoded_message):
@@ -108,11 +115,14 @@ def oaep_decode(encoded_message):
     Take an input message and ...
 
     Keyword arguments:
-    encoded_message -- 
+    encoded_message -- message to decode
  
     Returns:
     message -- the decoded message
     """
+    L = bytearray(binascii.unhexlify("da39a3ee5e6b4b0d3255bfef95601890afd80709"))
+    print(L)
+
     return ...
 
 if __name__ == '__main__':
@@ -134,18 +144,25 @@ if __name__ == '__main__':
 
     print(args)
 
-    mgf_seed = bytearray(binascii.unhexlify(args.mgfseed))
-    print("mgf_seed: {0}".format(mgf_seed))
+    # mgf_seed = bytearray(binascii.unhexlify(args.mgfseed))
+    # print("mgf_seed: {0}".format(mgf_seed))
 
-    output = mgf1(mgf_seed, args.masklen)
-    print("\nfinal output: {0}".format(binascii.hexlify(output)))
+    # output = mgf1(mgf_seed, args.masklen)
+    # print("\nfinal output: {0}".format(binascii.hexlify(output)))
     # print("Should output: {0}".format(
         # " 18a65e36189833d99e55a68dedda1cce13a494c947817d25dc80d9b4586a"))
     # print("Correct value? {0}".format("Yes!" 
         # if b"18a65e36189833d99e55a68dedda1cce13a494c947817d25dc80d9b4586a" 
         # == binascii.hexlify(output) else "No.."))
 
-    print(oaep_encode(ex['M'], ex['seed']))
+    # output = oaep_encode(ex['M'], ex['seed'])
+    # print("\nfinal output: \n{0}\n".format(output))
+    # print(binascii.hexlify(ex['EM']))
+    # print("Correct value? {0}".format("Yes!" 
+    #     if output 
+    #     == binascii.hexlify(ex['EM']) else "No.."))
+
+    print(oaep_decode(ex['EM']))
 
 '''
 Test quiz values:
