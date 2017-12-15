@@ -148,7 +148,7 @@ RFC 8017                      PKCS #1 v2.2                 November 2016
       Hash:
 
       SHA-1:   (0x)da39a3ee 5e6b4b0d 3255bfef 95601890 afd80709
-      
+
 -------------------------------------------------------------------------------
 
 7.1.2.  Decryption Operation
@@ -262,3 +262,9 @@ RFC 8017                      PKCS #1 v2.2                 November 2016
       Otherwise, an opponent may be able to obtain useful information
       about the decryption of the ciphertext C, leading to a chosen-
       ciphertext attack such as the one observed by Manger [MANGER].
+
+0063b462be5e84d382c86eb6725f70e59cd12c0060f9d3778a18b7aa067f90b2178406fa1e1bf77f03f86629dd5607d11b9961707736c2d16e7c668b367890bc6ef1745396404ba7832b1cdfb0388ef601947fc0aff1fd2dcd279dabde9b10bfc51efc06d40d25f96bd0f4c5d88f32c7d33dbc20f8a528b77f0c16a7b4dcdd8f
+
+00581bc2381cf79218566065eb1def452262df368e129de319b5c2bb66e84df6be244fc653a9468c6aafbe715fe366526e9596c452cdf7a42ddcec8d8005724dc7d9450b769aa0fe6f58e8949e503294de3106a7a3b0254eac2b94d245421e610ca70466137c29e7ff5ccd41dda83a44457ea3c820d0f360599833d34ec82e3b
+
+00581bc2381cf79218566065eb1def452262df368e129de319b5c2bb66e84df6be244fc653a9468c6aafbe715fe366526e9596c452cdf7a42ddcec8d8005724dc7d9450b769aa0fe6f58e8949e503294de3106a7a3b0254eac2b94d245421e610ca70466137c29e7ff5ccd41dda83a44457ea3c820d0f360599833d34ec82e3b
