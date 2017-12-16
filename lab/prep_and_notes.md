@@ -58,10 +58,48 @@ otherwise it is echo'ed that the "query: [echo query verbatim] failed".
 * Attack vectors
 	* Firstly, we see that the query uses quotes: "
 
+---
+
 ## Problem 2
-## Problem 3
+* Fill table of different usernames and queries
+Had to do this with `[USERNAME]" and "1"="1`, i. e. quotes
+
+* [username]
+	* TRUE		
+	* FALSE
+* user		
+	* `user" or "1"="1` => "Something went wrong with your authentication attempt"
+	* `user" AND 1=1#` => "Something went wrong with your authentication attempt"
+	* "Username user" AND 1=2# or password is unknown"
+* nobody
+	* "Username nobody" AND 1=1# or password is unknown"
+	* "Username nobody" AND 1=2# or password is unknown"
+	So, if username does not exist TRUE and FALSE statements give same msg.
+	If username exists, TRUE statement gives different msg.
+(Note: from here I will just write of acc exists)
+* root
+	* No.
+* administrator
+	* No.
+* admin
+	* *--Yes!--*
+* superuser
+	* No.
+
+The error msgs could differ for several reasons, but a likely one is that
+a programmer thought this would be a nice feature for an existing user 
+to have.
 
 ---
+
+## Problem 3
+* It does not work. Why?
+* Try to get access w/o password:
+	* `admin" OR "user` w/ user's password does not work.
+	* Could theoretically do ; and add a query, but since quotes are added around
+	values, this is hard to do.
+* Access to admin acc w/o password?
+	* Abuse change password feature?
 
 ## Problem 4
 ## Problem 5
