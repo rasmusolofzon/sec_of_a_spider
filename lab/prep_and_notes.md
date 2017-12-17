@@ -168,14 +168,34 @@ loading the site, and then click the Delete All button.
 		E. g. letting somebody know you have control over
 		at least part of their system to scare or blackmail
 		them. Or attacking an automatic system of some sort.
+		* 2: Could be useful if one wants to e. g. target 
+		a specific user, use a little social engineering
+		and trick a special user into clicking something
+		but not every user that visits the site.
+		* 3: If covertness is of importance.
+		If one wants to collect cookies from every user,
+		for e. g. scanning for email-(password?) combinations 
+		used, credit card details, etc.
+
+---
 
 ## Problem 8
+* Can browse site unhindered, from what I can tell.
+* What would happen? Perhaps the sessions would "cancel out" eachother?
+Or both sessions would get the same requests, same thing would happen on both?
+	* Tried to test this, but the version of Firefox installed in the VM
+	is 17.0, so there is no private mode. This could be used because 
+	a private window runs on a separate process from 'regular' windows,
+	which all run on the same process. Thus, moot.
+	* So, not sure of what would happen.
+
+---
+
+# Defending!
+
 ## Problem 9
+
+
 ## Problem 10
 ## Problem 11
 ## Problem 12
-## Problem 13
-## Problem 14
-## Problem 15
-## Problem 16
-## Problem 17
