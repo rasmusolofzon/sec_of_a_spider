@@ -16,7 +16,7 @@
 ## Decrypting envelopment part
 
 Following command gave headers of message, probably smth good. Halfay through?
-	openssl cms -decrypt -in mail3.msg -inkey keyreceiver.pem -no_signer_cert_verify-CApath certs
+	openssl cms -decrypt -in mail3.msg -inkey keyreceiver.pem -no_signer_cert_verify -CApath certs
 
 `openssl cms -decrypt -in mail2.msg -inkey keyreceiver.pem -no_signer_cert_verify -CApath certs -out headers/mail2.head`
 

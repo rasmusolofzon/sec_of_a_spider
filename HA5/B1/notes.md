@@ -65,7 +65,7 @@ Multiplying p with q gives n. This turned out to be:
 
 
 The beginning and end of this string corresponds to the n string retrieved from the censored PEM file, this should verify that the value is correct.  
-(edit: checked it w/ python script, bytes 3-53(smth) differs)
+(edit: checked it w/ python script, bytes 3-51(smth) differs)
 Now for using that value:
 
     0:d=0  hl=4 l= 605 cons: SEQUENCE          
